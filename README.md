@@ -6,9 +6,9 @@ Uma aplicação web simples e moderna para gerenciamento de tarefas, desenvolvid
 
 - **Criação de Tarefas**: Adicione novas tarefas com título, descrição, prioridade e status
 - **Visualização**: Lista organizada por prioridade (Alta → Média → Baixa)
-- ✏**Edição**: Modifique tarefas existentes
-- 🗑**Exclusão**: Remova tarefas indesejadas
-- ✔**Marcar como Concluída**: Atualize o status rapidamente
+- **Edição**: Modifique tarefas existentes
+- **Exclusão**: Remova tarefas indesejadas
+- **Marcar como Concluída**: Atualize o status rapidamente
 - **Filtros**: Filtre por status e prioridade
 - **Interface Responsiva**: Design moderno com Bootstrap
 - **API REST**: Endpoints para integração
