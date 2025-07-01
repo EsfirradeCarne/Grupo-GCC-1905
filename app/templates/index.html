@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="fas fa-list me-2"></i>Minhas Tarefas</h1>
+            <a href="{{ url_for('add_task') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i>Nova Tarefa
+            </a>
+        </div>
+
+        <!-- Filtros -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-filter me-2"></i>Filtros</h5>
+                <form method="GET" class="row g-3">
+                    <div class="col-md-4">
+                        <label for="status" class="form-label">Status</label>
+                        <select name="status" id="status" class="form-select">
+                            <option value="">Todos os Status</option>
+                            <option value="Pendente" {{ 'selected' if current_status == 'Pendente' }}>Pendente</option>
+                            <option value="Em andamento" {{ 'selected' if current_status == 'Em andamento' }}>Em andamento</option>
+                            <option value="Concluída" {{ 'selected' if current_status == 'Concluída' }}>Concluída</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="priority" class="form-label">Prioridade</label>
+                        <select name="priority" id="priority" class="form-select">
+                            <option value="">Todas as Prioridades</option>
+                            <option value="Alta" {{ 'selected' if current_priority == 'Alta' }}>Alta</option>
+                            <option value="Média" {{ 'selected' if current_priority == 'Média' }}>Média</option>
+                            <option value="Baixa" {{ 'selected' if current_priority == 'Baixa' }}>Baixa</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-secondary me-2">
+                            <i class="fas fa-search me-1"></i>Filtrar
+                        </button>
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i>Limpar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Lista de Tarefas -->
+        {% if tasks %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Descrição</th>
+                                    <th>Prioridade</th>
+                                    <th>Status</th>
+                                    <th>Criada em</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for task in tasks %}
+                                <tr class="{{ 'table-success' if task.status == 'Concluída' else '' }}">
+                                    <td>
+                                        <strong>{{ task.titulo }}</strong>
+                                    </td>
+                                    <td>
+                                        {{ task.descricao[:50] + '...' if task.descricao and task.descricao|length > 50 else task.descricao or '-' }}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ 'danger' if task.prioridade == 'Alta' else 'warning' if task.prioridade == 'Média' else 'secondary' }}">
+                                            {{ task.prioridade }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if task.status == 'Concluída' else 'primary' if task.status == 'Em andamento' else 'secondary' }}">
+                                            {{ task.status }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ task.data_criacao.strftime('%d/%m/%Y %H:%M') if task.data_criacao else '-' }}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            {% if task.status != 'Concluída' %}
+                                                <a href="{{ url_for('complete_task', id=task.id) }}" 
+                                                   class="btn btn-sm btn-success" 
+                                                   title="Marcar como concluída"
+                                                   onclick="return confirm('Marcar esta tarefa como concluída?')">
+                                                    <i class="fas fa-check"></i>
+                                                </a>
+                                            {% endif %}
+                                            <a href="{{ url_for('edit_task', id=task.id) }}" 
+                                               class="btn btn-sm btn-primary" 
+                                               title="Editar tarefa">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{{ url_for('delete_task', id=task.id) }}" 
+                                               class="btn btn-sm btn-danger" 
+                                               title="Excluir tarefa"
+                                               onclick="return confirm('Tem certeza que deseja excluir esta tarefa?')">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-inbox fa-5x text-muted mb-3"></i>
+                <h3 class="text-muted">Nenhuma tarefa encontrada</h3>
+                <p class="text-muted">Comece criando sua primeira tarefa!</p>
+                <a href="{{ url_for('add_task') }}" class="btn btn-primary">
+                    <i class="fas fa-plus me-1"></i>Criar primeira tarefa
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

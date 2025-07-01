@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Tarefa - Lista de Tarefas{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-edit me-2"></i>Editar Tarefa
+                </h3>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="titulo" name="titulo" value="{{ task.titulo }}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="descricao" name="descricao" rows="3" placeholder="Descrição opcional da tarefa">{{ task.descricao }}</textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="prioridade" class="form-label">Prioridade</label>
+                                <select class="form-select" id="prioridade" name="prioridade" required>
+                                    <option value="Alta" {{ 'selected' if task.prioridade == 'Alta' }}>Alta</option>
+                                    <option value="Média" {{ 'selected' if task.prioridade == 'Média' }}>Média</option>
+                                    <option value="Baixa" {{ 'selected' if task.prioridade == 'Baixa' }}>Baixa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" id="status" name="status" required>
+                                    <option value="Pendente" {{ 'selected' if task.status == 'Pendente' }}>Pendente</option>
+                                    <option value="Em andamento" {{ 'selected' if task.status == 'Em andamento' }}>Em andamento</option>
+                                    <option value="Concluída" {{ 'selected' if task.status == 'Concluída' }}>Concluída</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Criada em:</strong> {{ task.data_criacao.strftime('%d/%m/%Y às %H:%M') if task.data_criacao else 'N/A' }}<br>
+                        <strong>Última atualização:</strong> {{ task.data_atualizacao.strftime('%d/%m/%Y às %H:%M') if task.data_atualizacao else 'N/A' }}
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-1"></i>Voltar
+                        </a>
+                        <div>
+                            <a href="{{ url_for('delete_task', id=task.id) }}" 
+                               class="btn btn-danger me-2"
+                               onclick="return confirm('Tem certeza que deseja excluir esta tarefa?')">
+                                <i class="fas fa-trash me-1"></i>Excluir
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>Salvar Alterações
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
