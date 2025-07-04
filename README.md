@@ -66,13 +66,10 @@ netstat -ano | findstr :5001
 taskkill /PID <PID> /F
 ```
 
-### Erro no Robot Framework
-- Verificar se Chrome está instalado
-- Verificar se chromedriver está no PATH
-- Executar testes com `--loglevel DEBUG`
-
 ### Problemas com dependências
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
+Teste Readme2
