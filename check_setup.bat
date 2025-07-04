@@ -4,18 +4,18 @@ echo   Verificador de Ambiente - Lista de Tarefas
 echo ================================================
 echo.
 
-echo 🔍 Verificando instalacao...
+echo Verificando instalacao...
 echo.
 
 REM Verificar Python
 echo [1/6] Verificando Python...
 python --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo ❌ Python nao encontrado!
+    echo Python nao encontrado!
     echo    Instale Python em: https://python.org
     goto :end
 ) else (
-    for /f "tokens=*" %%i in ('python --version') do echo ✅ %%i
+    for /f "tokens=*" %%i in ('python --version') do echo %%i
 )
 echo.
 
@@ -23,11 +23,11 @@ REM Verificar pip
 echo [2/6] Verificando pip...
 pip --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo ❌ pip nao encontrado!
+    echo pip nao encontrado!
     echo    Execute: python -m ensurepip --upgrade
     goto :end
 ) else (
-    for /f "tokens=1,2" %%i in ('pip --version') do echo ✅ %%i %%j
+    for /f "tokens=1,2" %%i in ('pip --version') do echo %%i %%j
 )
 echo.
 

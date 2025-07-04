@@ -76,16 +76,3 @@ taskkill /PID <PID> /F
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-
-## Contribuição
-
-1. Fork do repositório
-2. Criar branch de feature
-3. Fazer alterações
-4. Executar testes localmente
-5. Abrir Pull Request
-6. Aguardar aprovação do CI/CD
-
----
-
-**Objetivo**: Demonstrar fluxo completo de desenvolvimento com testes automatizados e CI/CD usando Robot Framework e GitHub Actions.
