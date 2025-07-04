@@ -6,8 +6,8 @@ Suite Setup       Setup Test Suite
 Suite Teardown    Teardown Test Suite
 
 *** Variables ***
-${SERVER_URL}          http://localhost:5000
-${BROWSER}             Chrome
+${SERVER_URL}          http://localhost:5001
+${BROWSER}             headlesschrome
 ${DELAY}               0.5
 
 *** Test Cases ***

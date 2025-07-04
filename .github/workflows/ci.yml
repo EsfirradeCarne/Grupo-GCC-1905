@@ -35,7 +35,7 @@ jobs:
         cd app
         timeout 30s python main.py &
         sleep 10
-        curl -f http://localhost:5000 || echo "App funcionando"
+        curl -f http://localhost:5001 || echo "App funcionando"
     
     - name: Executar testes Robot Framework
       run: |

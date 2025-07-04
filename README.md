@@ -33,12 +33,10 @@ O pipeline GitHub Actions executa:
 **Em Pull Requests:**
 - Validação de sintaxe
 - Execução de testes Robot Framework
-- Upload de resultados
+- Exibição de resultados
 
 **Em push para main:**
 - Todos os testes acima
-- Criação de build
-- Upload de artefatos
 
 ## API
 
@@ -48,6 +46,8 @@ O pipeline GitHub Actions executa:
 - `POST /api/tasks` - Criar tarefa
 - `PUT /api/tasks/<id>` - Atualizar tarefa
 - `DELETE /api/tasks/<id>` - Deletar tarefa
+
+**URL padrão**: http://localhost:5001
 
 ## Tecnologias
 
@@ -61,8 +61,8 @@ O pipeline GitHub Actions executa:
 
 ### Erro de porta ocupada
 ```bash
-# Parar processos na porta 5000
-netstat -ano | findstr :5000
+# Parar processos na porta 5001
+netstat -ano | findstr :5001
 taskkill /PID <PID> /F
 ```
 
