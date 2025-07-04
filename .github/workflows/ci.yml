@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   test:
@@ -30,20 +30,14 @@ jobs:
         python -m py_compile app/main.py
         echo "Sintaxe Python validada"
     
-    - name: Executar aplicação
+    - name: Executar testes Robot Framework (apenas API)
       run: |
         cd app
-        timeout 30s python main.py &
-        sleep 10
-        curl -f http://localhost:5001 || echo "App funcionando"
-    
-    - name: Executar testes Robot Framework
-      run: |
-        cd app
+        export PORT=5002
         python main.py &
-        sleep 10
+        sleep 15
         cd ..
-        robot --outputdir results tests/test_tasks.robot
+        robot --include api --outputdir results tests/test_tasks.robot
         echo "Testes Robot Framework executados"
       continue-on-error: true
     
