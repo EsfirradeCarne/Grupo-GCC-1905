@@ -1,109 +1,91 @@
-# Lista de Tarefas - Flask Web App
+# Lista de Tarefas - Flask + Robot Framework + GitHub Actions
 
-Uma aplicação web simples e moderna para gerenciamento de tarefas, desenvolvida com Flask, Bootstrap e SQLite.
+Aplicativo web simples de Lista de Tarefas demonstrando integração completa entre Flask, Robot Framework e GitHub Actions.
 
-## Funcionalidades
-
-- **Criação de Tarefas**: Adicione novas tarefas com título, descrição, prioridade e status
-- **Visualização**: Lista organizada por prioridade (Alta → Média → Baixa)
-- **Edição**: Modifique tarefas existentes
-- **Exclusão**: Remova tarefas indesejadas
-- **Marcar como Concluída**: Atualize o status rapidamente
-- **Filtros**: Filtre por status e prioridade
-- **Interface Responsiva**: Design moderno com Bootstrap
-- **API REST**: Endpoints para integração
-
-## Tecnologias Utilizadas
-
-- **Backend**: Python 3.9+ + Flask
-- **Frontend**: HTML5, CSS3, Bootstrap 5, Font Awesome
-- **Banco de Dados**: SQLite
-- **ORM**: SQLAlchemy
-- **Testes**: Robot Framework + Selenium
-- **CI/CD**: GitHub Actions
-
-## Setup Rápido para Desenvolvedores
-
-### Pré-requisitos
-- Python 3.8 ou superior instalado
-- Git instalado
-
-### Passo a Passo - Primeira Execução
-
-#### 1. Clonar o Repositório
-```bash
-git clone <URL_DO_REPOSITORIO>
-cd Grupo-GCC-1905
 ```
 
-#### 2. Executar o Script de Inicialização
-
-**Windows:**
+### Windows
 ```bash
+check_setup.bat
 run.bat
 ```
 
-**Linux/macOS:**
+## Testes
+
+### Executar localmente
 ```bash
-chmod +x run.sh
-./run.sh
+# Windows
+run_tests.bat
+
+# Linux/Mac
+robot --outputdir results tests/test_tasks.robot
 ```
 
-> **O script automaticamente vai:**
-> - Criar o ambiente virtual (se não existir)
-> - Ativar o ambiente virtual
-> - Instalar todas as dependências
-> - Iniciar a aplicação
+### Casos de teste incluídos
+- Abertura da aplicação
+- Criação de nova tarefa
+- Teste da API REST
 
-#### 3. Acessar a Aplicação
+## Pipeline CI/CD
 
-A aplicação estará disponível em: `http://localhost:5000`
+O pipeline GitHub Actions executa:
 
-### Executar Testes
+**Em Pull Requests:**
+- Validação de sintaxe
+- Execução de testes Robot Framework
+- Upload de resultados
 
-1. **Certifique-se que a aplicação está rodando**
-2. **Abra um novo terminal** e execute:
+**Em push para main:**
+- Todos os testes acima
+- Criação de build
+- Upload de artefatos
 
+## API
+
+### Endpoints disponíveis
+- `GET /` - Página principal
+- `GET /api/tasks` - Listar tarefas (JSON)
+- `POST /api/tasks` - Criar tarefa
+- `PUT /api/tasks/<id>` - Atualizar tarefa
+- `DELETE /api/tasks/<id>` - Deletar tarefa
+
+## Tecnologias
+
+- **Backend**: Flask, SQLite
+- **Frontend**: HTML5, Bootstrap 5, CSS3
+- **Testes**: Robot Framework, SeleniumLibrary
+- **CI/CD**: GitHub Actions
+- **Versionamento**: Git/GitHub
+
+## Troubleshooting
+
+### Erro de porta ocupada
 ```bash
-run_tests.bat  # Windows
+# Parar processos na porta 5000
+netstat -ano | findstr :5000
+taskkill /PID <PID> /F
 ```
 
-### Scripts Disponíveis
+### Erro no Robot Framework
+- Verificar se Chrome está instalado
+- Verificar se chromedriver está no PATH
+- Executar testes com `--loglevel DEBUG`
 
-| Script | Descrição |
-|--------|-----------|
-| `run.bat` / `run.sh` | Executa a aplicação (com setup automático) |
-| `run_tests.bat` | Executa os testes Robot Framework |
-| `check_setup.bat` / `check_setup.sh` | Verifica se o ambiente está configurado |
-
-### Problemas Comuns
-
-| Problema | Solução |
-|----------|---------|
-| `python: command not found` | Instale Python ou use `python3` |
-| `pip: command not found` | Instale pip: `python -m ensurepip` |
-| `Porta 5000 em uso` | Mude a porta no `app/main.py` |
-| `ModuleNotFoundError` | Execute `pip install -r requirements.txt` |
-
-### Verificação de Ambiente
-
-Para verificar se tudo está configurado:
-
-**Windows:**
+### Problemas com dependências
 ```bash
-check_setup.bat
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-**Linux/macOS:**
-```bash
-chmod +x check_setup.sh
-./check_setup.sh
-```
+## Contribuição
 
-### Testando se Funciona
+1. Fork do repositório
+2. Criar branch de feature
+3. Fazer alterações
+4. Executar testes localmente
+5. Abrir Pull Request
+6. Aguardar aprovação do CI/CD
 
-1. **Acesse:** `http://localhost:5000`
-2. **Clique em:** "Nova Tarefa"
-3. **Preencha:** Título = "Teste"
-4. **Clique em:** "Salvar Tarefa"
-5. **Verifique:** Se a tarefa aparece na lista ✅
+---
+
+**Objetivo**: Demonstrar fluxo completo de desenvolvimento com testes automatizados e CI/CD usando Robot Framework e GitHub Actions.
